@@ -1,6 +1,6 @@
-import ImageWithFallback from "../../../components/ImageWithFallback";
+import ImageWithFallback from "../ImageWithFallback";
 
-export default function FriendInfoCard({
+export default function FriendInfoListItem({
   name = "",
   username = "",
   avatar = "",

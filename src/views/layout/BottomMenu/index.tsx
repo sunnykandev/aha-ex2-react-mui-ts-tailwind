@@ -11,7 +11,7 @@ export default function BottomMenu() {
     menu: {
       boxShadow: "inset 0px 0.5px 0px #000000cc",
       backdropFilter: "blur(27.1828px)",
-      backgroundColor: "#18181833",
+      backgroundColor: "#18181899",
     },
   };
 

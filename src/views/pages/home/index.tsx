@@ -4,7 +4,7 @@ import { Divider, Stack, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 
 import CustomSlider from "../../components/CustomSlider";
-import FriendsDrawer from "./FriendsDrawer";
+import FriendsDrawer from "../../components/FriendsDrawer";
 
 const maxRealValue = 50;
 const maxMarkValue = 19;

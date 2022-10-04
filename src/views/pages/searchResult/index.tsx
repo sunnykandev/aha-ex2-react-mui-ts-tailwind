@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Button from "@mui/material/Button";
 
-import AnimalItem from "./AnimalItem";
-import FriendsDrawer from "../home/FriendsDrawer";
-import AnimalItemSkeleton from "./AnimalItemSkeleton";
+import { AnimalModel } from "../../../models";
+import FriendsDrawer from "../../components/FriendsDrawer";
+import InfiniteScrollContainer from "./InfiniteScrollContainer";
 
 export default function SearchResult() {
   const navigation = useNavigate();
@@ -18,54 +16,34 @@ export default function SearchResult() {
   const searchKeyword = Keyword;
   const pageCount = Count;
 
-  const [resultData, setResultData] = useState<AnimalInfo[]>([]);
+  const [resultData, setResultData] = useState<AnimalModel[]>([]);
   const [pageNum, setPageNum] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const styles = {
-    searchButton: {
-      height: "40px",
-      maxWidth: "343px",
-      marginRight: "2px",
-      marginLeft: "20px",
-      marginTop: "18px",
-      marginBottom: "30px",
-    },
-  };
-
-  interface AnimalInfo {
-    id: string;
-    avater: string;
-    name: string;
-    username: string;
-  }
-
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `https://avl-frontend-exam.herokuapp.com/api/users/all?page=${pageNum}&pageSize=${pageCount}&keyword=${searchKeyword}`,
-    })
-      .then((res) => {
-        setResultData(res.data.data);
-        setHasMore(res.data.totalPages > pageNum);
+  const fetchSearchResult = useCallback(
+    (num: number, count: number, keyword: string) => {
+      axios({
+        method: "get",
+        url: `https://avl-frontend-exam.herokuapp.com/api/users/all?page=${num}&pageSize=${count}&keyword=${keyword}`,
       })
-      .catch((err) => console.log(err));
-  });
+        .then((res) => {
+          const fetchedData = res?.data?.data;
+          setResultData((data) => data.concat(fetchedData ? fetchedData : []));
+          if (!fetchedData || !fetchedData.length) setHasMore(false);
+        })
+        .catch((error) => console.error(`Error ${error}`));
+    },
+    []
+  );
 
   const fetchMoreData = () => {
     setPageNum(pageNum + 1);
-    axios({
-      method: "get",
-      url: `https://avl-frontend-exam.herokuapp.com/api/users/all?page=${pageNum}&pageSize=${pageCount}&keyword=${searchKeyword}`,
-    })
-      .then((res) => {
-        const moreData = res?.data?.data;
-        setResultData(resultData.concat(moreData));
-        setHasMore(res.data.totalPages > pageNum);
-      })
-      .catch((error) => console.error(`Error ${error}`));
-    return () => {};
+    fetchSearchResult(pageNum, pageCount, searchKeyword);
   };
+
+  useEffect(() => {
+    fetchSearchResult(1, pageCount, searchKeyword);
+  }, [pageCount, searchKeyword, fetchSearchResult]);
 
   return (
     <>
@@ -92,59 +70,11 @@ export default function SearchResult() {
                 Results
               </Typography>
             </div>
-            <InfiniteScroll
-              className="mt-[7px] md:mt-[8px] mr-[-5px]"
-              dataLength={resultData.length}
-              next={fetchMoreData}
+            <InfiniteScrollContainer
+              items={resultData}
               hasMore={hasMore}
-              loader={<h4> </h4>}
-              height={730}
-            >
-              <Grid className="md:mt-[-18px]" container>
-                {resultData.length
-                  ? resultData.map((item: AnimalInfo, index: number) => (
-                      <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={4}
-                        lg={4}
-                        key={`animal-${index}`}
-                      >
-                        <AnimalItem
-                          imgsrc={item.avater}
-                          title={item.name}
-                          username={item.username}
-                        />
-                      </Grid>
-                    ))
-                  : [...Array(20)].map(
-                      (value: null | undefined, index: number) => (
-                        <Grid
-                          key={`skeleton-${value}-${index}`}
-                          item
-                          xs={12}
-                          sm={6}
-                          md={4}
-                          lg={4}
-                        >
-                          <AnimalItemSkeleton />
-                        </Grid>
-                      )
-                    )}
-              </Grid>
-              {resultData.length && (
-                <div>
-                  <Button
-                    className="w-full text-sm font-bold"
-                    style={styles.searchButton}
-                    onClick={fetchMoreData}
-                  >
-                    MORE
-                  </Button>
-                </div>
-              )}
-            </InfiniteScroll>
+              fetchMoreData={fetchMoreData}
+            />
           </Stack>
         </div>
         <FriendsDrawer />

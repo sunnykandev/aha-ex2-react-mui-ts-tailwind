@@ -67,6 +67,10 @@
   border-color: #171717 !important;
 }
 
+.infinite-scroll-component{
+  overflow-x: hidden !important;
+}
+
 .css-llennx-MuiTabs-indicator {
     background-color: white !important;
     height: 2px !important;
@@ -109,7 +113,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 4px;
 }
 
 /* Track */

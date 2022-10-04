@@ -13,14 +13,14 @@ export default function TagCard() {
       <Skeleton
         className="mb-2"
         animation="wave"
-        width={60}
+        width={90}
         height={12}
         component="div"
         sx={{ transform: "scale(1)" }}
       />
       <Skeleton
         animation="wave"
-        width={40}
+        width={70}
         height={10}
         component="div"
         sx={{ transform: "scale(1)" }}
