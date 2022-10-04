@@ -1,0 +1,130 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.menuBadge .MuiBadge-dot{
+  min-width: 5px !important;
+  width: 5px;
+  height: 5px;
+}
+.MuiTextField-root .MuiOutlinedInput-root{
+  height: 60px !important;
+}
+.MuiTextField-root .MuiOutlinedInput-root input{
+  font-size: 14px;
+  padding-left: 18px;
+}
+.MuiTextField-root .MuiOutlinedInput-root fieldset{
+  border-width: 3px !important;
+  border-color: #fff8;
+  border-radius: 6px !important;
+}
+.MuiSlider-markLabel{
+  font-size: 16px !important;
+  top: 42px !important;
+  color: #fff8 !important;
+}
+.MuiSlider-markLabelActive{
+  color: white !important;
+}
+
+.MuiPaper-root{
+  border-color: #171717 !important;
+}
+
+.css-llennx-MuiTabs-indicator {
+    background-color: white !important;
+    height: 2px !important;
+}
+
+.css-i1153f-MuiPaper-root-MuiDrawer-paper {
+  background-image:none !important;
+}
+
+.MuiTab-root{
+  text-transform: none !important;
+  font-size: 16px !important;
+  color:#929292 !important;
+  opacity: 0.87 !important;
+  font-weight: 400 !important;
+  padding-top: 21px !important;
+}
+.MuiTab-root.Mui-selected{
+  color:white !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+.MuiSlider-root > span:nth-child(4){
+  left: 4px !important;
+}
+.MuiSlider-root > span:nth-child(14){
+  left: unset !important;
+  right:-12px;
+}
+.MuiButton-root{
+  background:white !important;
+  color:#121212 !important;
+  border: solid 1px white !important;
+}
+.MuiButton-root:hover{
+  background:#121212 !important;
+  color:white !important;
+  border: solid 1px white !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255 ,0.2); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255 ,0.2); 
+}
