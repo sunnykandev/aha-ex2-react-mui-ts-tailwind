@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <div className="w-full flex flex-row flex-grow">
       <div className="w-full xl-max:w-2/3 px-[20px] sm:px-12 md:px-18 lg:px-32 pt-[72px] md:pt-14 flex flex-col justify-between flex-grow">
-        <Stack spacing={2} className="ml-[1px] mt-[1px]">
+        <Stack spacing={2} className="flex-1 ml-[1px] mt-[1px]">
           <Typography variant="h5">Search</Typography>
           <TextField
             error={errorStatus}
@@ -130,7 +130,8 @@ export default function Home() {
               );
             }}
           />
-          <Divider className="mt-[237px] md:mt-[46px] md:mt-60 md:my-10"></Divider>
+          <div className="block md:hidden flex-1"></div>
+          <Divider className="md:mt-[46px] mb-[77px]"></Divider>
         </Stack>
         <div className="w-full pb-[92px] md:pb-[87px]">
           <div className="w-full">
