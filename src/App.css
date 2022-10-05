@@ -65,6 +65,7 @@
 
 .MuiPaper-root{
   border-color: #171717 !important;
+  background-image: none !important;
 }
 
 .infinite-scroll-component{
@@ -72,6 +73,11 @@
 }
 
 .css-llennx-MuiTabs-indicator {
+    background-color: white !important;
+    height: 2px !important;
+}
+
+.MuiTabs-indicator{
     background-color: white !important;
     height: 2px !important;
 }
