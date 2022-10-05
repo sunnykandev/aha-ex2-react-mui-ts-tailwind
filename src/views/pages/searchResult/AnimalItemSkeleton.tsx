@@ -6,17 +6,21 @@ export default function AnimalItemSkeleton() {
       margin: "18px",
       marginBottom: "11px",
     },
+    imageSkeleton: {
+      height: "0px",
+      paddingBottom: "66%",
+    },
   };
 
   return (
     <>
       <div style={styles.gridItem}>
         <Skeleton
-          className="h-[250px] sm:h-[130px]"
+          className="h-[250px]"
           animation="wave"
-          height={130}
           component="div"
           sx={{ transform: "scale(1)" }}
+          style={styles.imageSkeleton}
         />
         <Skeleton
           animation="wave"

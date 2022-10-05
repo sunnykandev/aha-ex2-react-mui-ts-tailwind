@@ -12,7 +12,7 @@ export default function AnimalItem({
         fallbackSrc={"/images/Image1.svg"}
         src={avater}
         alt="animal-image"
-        height={130}
+        ratio={66}
         style={{ width: "100%" }}
       />
       <div className="text-white  text-[15px] pt-[22px] md:pt-[14px] pb-[1px]">
