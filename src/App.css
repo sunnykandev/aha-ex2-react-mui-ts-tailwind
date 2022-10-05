@@ -63,6 +63,14 @@
   color: white !important;
 }
 
+.Mui-error .MuiOutlinedInput-notchedOutline{
+  border-color: #b31b0c !important;
+}
+
+.Mui-error .MuiFormHelperText-root.Mui-error{
+  color: #df4637 !important;
+}
+
 .MuiPaper-root{
   border-color: #171717 !important;
   background-image: none !important;

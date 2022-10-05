@@ -9,7 +9,7 @@ import FriendsDrawer from "../../components/FriendsDrawer";
 import InfiniteScrollContainer from "./InfiniteScrollContainer";
 
 export default function SearchResult() {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const Keyword: string = location.state.keyword;
   const Count: number = location.state.count;
@@ -53,7 +53,11 @@ export default function SearchResult() {
             <div className="md:hidden flex flex-row items-center ml-[9px] md:ml-[-21px] mt-[-63px] mb-[22px]">
               <ArrowBackIosIcon
                 fontSize="medium"
-                onClick={() => navigation("/")}
+                onClick={() =>
+                  navigate("/", {
+                    state: { keyword: searchKeyword, count: pageCount },
+                  })
+                }
                 className="cursor-pointer mr-[10px] h-[24px] text-white"
               />
               <Typography className="text-[24px] md:text-[30px]">
@@ -63,7 +67,11 @@ export default function SearchResult() {
             <div className="flex flex-row items-center ml-[4px] md:ml-[-21px]">
               <ArrowBackIosIcon
                 fontSize="medium"
-                onClick={() => navigation("/")}
+                onClick={() =>
+                  navigate("/", {
+                    state: { keyword: searchKeyword, count: pageCount },
+                  })
+                }
                 className="cursor-pointer mr-[22px] h-[24px] text-white hidden md:block"
               />
               <Typography className="text-[24px] md:text-[30px]">
