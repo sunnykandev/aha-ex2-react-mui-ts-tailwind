@@ -16,7 +16,6 @@ export default function AnimalItemSkeleton() {
     <>
       <div style={styles.gridItem}>
         <Skeleton
-          className="h-[250px]"
           animation="wave"
           component="div"
           sx={{ transform: "scale(1)" }}
