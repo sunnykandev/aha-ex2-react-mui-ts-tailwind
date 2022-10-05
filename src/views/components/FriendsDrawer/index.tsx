@@ -19,7 +19,10 @@ export default function FriendsDrawer() {
 
   return (
     <>
-      <div style={styles.usersPanel} className="hidden xl-max:block">
+      <div
+        style={styles.usersPanel}
+        className="hidden xl-max:block bg-medium-black"
+      >
         <FriendsList />
       </div>
       <div
