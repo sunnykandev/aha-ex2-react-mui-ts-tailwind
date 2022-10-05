@@ -116,11 +116,11 @@
 }
 .MuiButton-root{
   background:white !important;
-  color:#121212 !important;
+  color:#181818 !important;
   border: solid 1px white !important;
 }
 .MuiButton-root:hover{
-  background:#121212 !important;
+  background:#181818 !important;
   color:white !important;
   border: solid 1px white !important;
 }
