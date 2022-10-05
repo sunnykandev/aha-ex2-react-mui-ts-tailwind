@@ -21,7 +21,7 @@ export default function SideMenuButton({
 
   return (
     <div
-      className="flex flex-col justify-center items-center cursor-pointer px-2 mb-3 mt-3 sm:mb-5 sm:mt-1 mx-4 sm:mx-0 text-white"
+      className="flex flex-col justify-center items-center cursor-pointer px-2 mb-3 mt-3 mx-4 md:mb-5 md:mt-1 md:mx-0 text-white"
       onClick={() => navigation(`/${pathname}`)}
       onMouseOver={() => setIsHover(true)}
       onMouseOut={() => setIsHover(false)}
@@ -39,9 +39,9 @@ export default function SideMenuButton({
         />
       </Badge>
       {isActive || isHover ? (
-        <div className="text-xs hidden sm:block">{label}</div>
+        <div className="text-xs hidden md:block">{label}</div>
       ) : (
-        <div className="text-xs text-transparent hidden sm:block">{label}</div>
+        <div className="text-xs text-transparent hidden md:block">{label}</div>
       )}
     </div>
   );

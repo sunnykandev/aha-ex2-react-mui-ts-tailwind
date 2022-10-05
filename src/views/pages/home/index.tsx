@@ -85,7 +85,7 @@ export default function Home() {
 
   return (
     <div className="w-full flex flex-row flex-grow">
-      <div className="w-full xl-max:w-2/3 px-[20px] sm:px-12 md:px-18 lg:px-32 pt-[72px] sm:pt-14 flex flex-col justify-between flex-grow">
+      <div className="w-full xl-max:w-2/3 px-[20px] sm:px-12 md:px-18 lg:px-32 pt-[72px] md:pt-14 flex flex-col justify-between flex-grow">
         <Stack spacing={2} className="ml-[1px] mt-[1px]">
           <Typography variant="h5">Search</Typography>
           <TextField
@@ -130,12 +130,12 @@ export default function Home() {
               );
             }}
           />
-          <Divider className="mt-[237px] md:mt-60 sm:my-10"></Divider>
+          <Divider className="mt-[237px] md:mt-[46px] md:mt-60 md:my-10"></Divider>
         </Stack>
-        <div className="w-full pb-[87px]">
+        <div className="w-full pb-[92px] md:pb-[87px]">
           <div className="w-full">
             <Button
-              className="h-[40px] w-full sm:max-w-[343px] mr-[2px] ml-[2px] text-sm font-bold"
+              className="h-[40px] w-full sm:max-w-[343px] mr-[2px] md:ml-[2px] text-sm font-bold"
               onClick={handleClickSearch}
             >
               SEARCH
