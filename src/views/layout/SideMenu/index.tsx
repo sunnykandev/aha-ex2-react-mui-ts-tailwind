@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
-import { Drawer, Stack, Toolbar } from "@mui/material";
+import { Drawer, Stack, Toolbar, IconButton, Link } from "@mui/material";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 import SideMenuButton from "./SideMenuButton";
 
@@ -58,6 +59,20 @@ export default function SideMenu() {
           pathname="tags"
         />
       </Stack>
+      <div className="flex-1" />
+      <Link
+        href="https://github.com/sunnykandev/aha-ex2-react-mui-ts-tailwind"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <IconButton
+          className="ml-3 mr-3 mb-5"
+          aria-label="github repository"
+          component="label"
+        >
+          <GitHubIcon fontSize="large" />
+        </IconButton>
+      </Link>
     </Drawer>
   );
 }
