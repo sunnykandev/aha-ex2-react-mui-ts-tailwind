@@ -54,7 +54,7 @@ export default function FriendsList({
                 />
               </div>
             ))
-          : [...Array(8)].map((val: null | undefined, index: number) => (
+          : [...Array(12)].map((val: null | undefined, index: number) => (
               <div key={`loading-${val}-${index}`}>
                 <FriendItemSkeleton />
               </div>

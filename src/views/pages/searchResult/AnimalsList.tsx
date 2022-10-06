@@ -58,7 +58,7 @@ export default function AnimalsList({
     >
       <div id="searchResult" className="pb-10">
         <Grid className="md:mt-[-18px]" container>
-          {searchResultItems.length &&
+          {searchResultItems.length !== 0 &&
             searchResultItems.map((item: AnimalModel, index: number) => (
               <Grid item xs={12} sm={6} md={4} lg={4} key={`animal-${index}`}>
                 <AnimalItem
@@ -69,7 +69,7 @@ export default function AnimalsList({
               </Grid>
             ))}
           {isLoading &&
-            [...Array(9)].map((value: null | undefined, index: number) => (
+            [...Array(6)].map((value: null | undefined, index: number) => (
               <Grid
                 key={`skeleton-${value}-${index}`}
                 item
