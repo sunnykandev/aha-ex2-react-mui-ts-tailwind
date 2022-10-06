@@ -1,49 +1,15 @@
-import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Stack, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-import { AnimalModel } from "../../../models";
 import FriendsDrawer from "../../components/FriendsDrawer";
-import InfiniteScrollContainer from "./InfiniteScrollContainer";
+import AnimalsList from "./AnimalsList";
 
 export default function SearchResult() {
   const navigate = useNavigate();
   const location = useLocation();
-  const Keyword: string = location.state.keyword;
-  const Count: number = location.state.count;
-  const searchKeyword = Keyword;
-  const pageCount = Count;
-
-  const [resultData, setResultData] = useState<AnimalModel[]>([]);
-  const [pageNum, setPageNum] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-
-  const fetchSearchResult = useCallback(
-    (num: number, count: number, keyword: string) => {
-      axios({
-        method: "get",
-        url: `https://avl-frontend-exam.herokuapp.com/api/users/all?page=${num}&pageSize=${count}&keyword=${keyword}`,
-      })
-        .then((res) => {
-          const fetchedData = res?.data?.data;
-          setResultData((data) => data.concat(fetchedData ? fetchedData : []));
-          if (!fetchedData || !fetchedData.length) setHasMore(false);
-        })
-        .catch((error) => console.error(`Error ${error}`));
-    },
-    []
-  );
-
-  const fetchMoreData = () => {
-    setPageNum(pageNum + 1);
-    fetchSearchResult(pageNum, pageCount, searchKeyword);
-  };
-
-  useEffect(() => {
-    fetchSearchResult(1, pageCount, searchKeyword);
-  }, [pageCount, searchKeyword, fetchSearchResult]);
+  const searchKeyword: string = location.state.keyword; // Search term passed from home page.
+  const pageCount: number = location.state.count; // Result count per page passed from home page.
 
   return (
     <>
@@ -78,11 +44,7 @@ export default function SearchResult() {
                 Results
               </Typography>
             </div>
-            <InfiniteScrollContainer
-              items={resultData}
-              hasMore={hasMore}
-              fetchMoreData={fetchMoreData}
-            />
+            <AnimalsList searchKeyword={searchKeyword} pageCount={pageCount} />
           </Stack>
         </div>
         <FriendsDrawer />

@@ -13,6 +13,7 @@ export const fetchFollowers = (
   perPage: number
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch, getState) => {
+    // Prevent refetching items that are already stored in redux state.
     if (getState().friends.followers.length / perPage > pageNum) {
       return;
     }

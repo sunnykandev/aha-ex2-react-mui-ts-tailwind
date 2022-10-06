@@ -6,7 +6,7 @@ import SideMenuButton from "./SideMenuButton";
 export const DRAWER_WIDTH = 80;
 
 export default function SideMenu() {
-  const pathname = useLocation();
+  const routeState = useLocation();
   const styles = {
     deskTopToolbar: {
       minHeight: "88px",
@@ -43,9 +43,9 @@ export default function SideMenu() {
         <SideMenuButton
           label="Home"
           isActive={
-            pathname.pathname === "/home" ||
-            pathname.pathname === "/" ||
-            pathname.pathname === "/result"
+            routeState.pathname === "/home" ||
+            routeState.pathname === "/" ||
+            routeState.pathname === "/result"
               ? true
               : false
           }
@@ -53,7 +53,7 @@ export default function SideMenu() {
         />
         <SideMenuButton
           label="Tags"
-          isActive={pathname.pathname === "/tags" ? true : false}
+          isActive={routeState.pathname === "/tags" ? true : false}
           isBadge={true}
           pathname="tags"
         />

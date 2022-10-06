@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Stack, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
+import Api from "../../../service/Api";
 import TagCard from "./TagCard";
 import TagCardSkeleton from "./TagCardSkeleton";
 
@@ -17,10 +17,8 @@ export default function Tags() {
   }
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "https://avl-frontend-exam.herokuapp.com/api/tags",
-    })
+    Api()
+      .get("https://avl-frontend-exam.herokuapp.com/api/tags")
       .then((res) => {
         setTagsData(res?.data);
       })

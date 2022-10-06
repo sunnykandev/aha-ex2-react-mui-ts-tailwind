@@ -6,9 +6,9 @@ import Button from "@mui/material/Button";
 import CustomSlider from "../../components/CustomSlider";
 import FriendsDrawer from "../../components/FriendsDrawer";
 
-const maxRealValue = 50;
-const maxMarkValue = 19;
-const maxRegularValue = 15;
+const maxRealValue = 50; // Slider's max value.
+const maxMarkValue = 19; // Slider's length in regular interval count.
+const maxRegularValue = 15; // Values below this value would have regular intervals.
 
 const sliderMarks = [
   {
@@ -44,13 +44,14 @@ const valuetext = (value: number) => {
 export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
-  const Keyword: string = location?.state?.keyword;
-  const Count: number = location?.state?.count;
+  const Keyword: string = location?.state?.keyword; // Search term.
+  const Count: number = location?.state?.count; // Result count per page.
 
   const [searchKeyword, setSearchKeyword] = useState<string>(Keyword || "");
   const [resultCount, setResultCount] = useState<number>(Count || 12);
-  const [errorStatus, setErrorStatus] = useState<boolean>(false);
+  const [errorStatus, setErrorStatus] = useState<boolean>(false); // Validation error.
 
+  // In slider, if a value out of regular interval range is selected, it is converted into real value.
   const onResultsCountChange = (value: number) => {
     let resultValue = value;
     if (value > maxRegularValue) {
@@ -63,6 +64,7 @@ export default function Home() {
     return setResultCount(resultValue);
   };
 
+  // Validate search term when user clicks search button.
   const handleClickSearch = () => {
     if (!searchKeyword) {
       setErrorStatus(true);
@@ -73,6 +75,12 @@ export default function Home() {
     });
   };
 
+  /*
+  MUI's slider thumb gets its position based on the value and its regular interval.
+  But this slider has different interval after some limit value.
+  So values above this limit value have to be converted into 'display value' based on 
+  regular interval so that the thumb gets right position.
+  */
   const sliderDisplayValue =
     resultCount < maxRegularValue
       ? resultCount

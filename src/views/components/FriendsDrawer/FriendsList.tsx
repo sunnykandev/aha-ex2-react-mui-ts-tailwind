@@ -1,97 +1,75 @@
-import React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
+import { useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import { fetchFollowers, fetchFollowings } from "../../../store/friendsActions";
+import { FriendModel } from "../../../models";
+import FriendInfoListItem from "./FriendInfoListItem";
+import FriendItemSkeleton from "./FriendItemSkeleton";
+import InfiniteScrollContainer from "../../components/InfiniteScrollContainer";
 
-import InfiniteScrollContainer from "./InfiniteScrollContainer";
+export default function FriendsList({
+  elementId, // id attribute of scrollable box container.
+  items,
+  emitFetchMore, // fetch more request is handled by parent.
+  perPageProp = 10,
+  pageNumProp = 1,
+}: {
+  elementId: string;
+  items: FriendModel[];
+  emitFetchMore: (pageNum: number, perPage: number) => void;
+  perPageProp?: number;
+  pageNumProp?: number;
+}) {
+  const [pageNum, setPageNum] = useState<number>(pageNumProp);
+  const [oldItemsCount, setOldItemsCount] = useState<number>(0); // number of items prior to sending new fetch more request.
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+  const fetchMore = () => {
+    // Ignore fetch more event if previous request has no response yet.
+    if (oldItemsCount === items.length) return;
+    setOldItemsCount(items.length); // Make oldItemsCount up-to-date.
+    emitFetchMore(pageNum + 1, perPageProp); // Emit new request for next page items to parent.
+    setPageNum(pageNum + 1); // Update page number.
+  };
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  useEffect(() => {
+    // Set the start page based on number of items that are currently stored in redux state. (instead of blindly start from page 1.)
+    setPageNum(Math.round(items.length / perPageProp));
+    // Adjust scrollable container's height whenever screen size changes.
+  }, [items.length, perPageProp]);
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
+    <InfiniteScrollContainer
+      elementId={elementId}
+      itemsLength={items.length}
+      hasMore={true}
+      fetchMore={fetchMore}
     >
-      {value === index && (
-        <Box sx={{ px: 1, py: 3.2 }}>
-          <div>{children}</div>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-export default function FriendsList() {
-  const countPerPage = 10;
-  const dispatch = useAppDispatch();
-  const [tabIndex, setTabIndex] = React.useState<number>(0);
-  const followers = useAppSelector((state) => state.friends.followers);
-  const followings = useAppSelector((state) => state.friends.followings);
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabIndex(newValue);
-  };
-
-  React.useEffect(() => {
-    dispatch(fetchFollowers(1, countPerPage));
-    dispatch(fetchFollowings(1, countPerPage));
-  }, [dispatch]);
-
-  return (
-    <>
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={tabIndex}
-            onChange={handleTabChange}
-            aria-label="basic tabs example"
-            variant="fullWidth"
-          >
-            <Tab label="Followers" {...a11yProps(0)} />
-            <Tab label="Following" {...a11yProps(1)} />
-          </Tabs>
-        </Box>
-        <TabPanel value={tabIndex} index={0}>
-          <InfiniteScrollContainer
-            id="followers-container"
-            items={followers}
-            emitFetchMore={(pageNum, perPage) =>
-              dispatch(fetchFollowers(pageNum, perPage))
-            }
-            perPageProp={10}
-          />
-        </TabPanel>
-        <TabPanel value={tabIndex} index={1}>
-          <InfiniteScrollContainer
-            id="followings-container"
-            items={followings}
-            emitFetchMore={(pageNum, perPage) =>
-              dispatch(fetchFollowings(pageNum, perPage))
-            }
-            perPageProp={10}
-          />
-        </TabPanel>
-      </Box>
-    </>
+      <div id={elementId} className="pb-5">
+        {items.length
+          ? items.map((item: FriendModel, index: number) => (
+              <div key={`followers-${index}`}>
+                <FriendInfoListItem
+                  avatar={item?.avater}
+                  name={item?.name}
+                  username={item?.username}
+                  isFollowing={item?.isFollowing}
+                />
+              </div>
+            ))
+          : [...Array(8)].map((val: null | undefined, index: number) => (
+              <div key={`loading-${val}-${index}`}>
+                <FriendItemSkeleton />
+              </div>
+            ))}
+        {items.length && oldItemsCount != items.length && (
+          <div className="flex justify-center">
+            <button
+              className="border border-white rounded-full text-white text-bold  hover:text-black hover:bg-white hover:border hover:border-black text-sm mt-5 mb-5 px-10 py-1.5"
+              onClick={() => fetchMore()}
+            >
+              More
+            </button>
+          </div>
+        )}
+      </div>
+    </InfiniteScrollContainer>
   );
 }

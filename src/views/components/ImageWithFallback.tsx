@@ -2,12 +2,12 @@ import React from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 interface ImageWithFallbackProps {
-  src: string;
-  fallbackSrc: string;
-  alt?: string;
-  width?: number;
-  height?: number;
-  ratio?: number;
+  src: string; // Source url of original image.
+  fallbackSrc: string; // Alternative image source in the case it fails to load original image.
+  alt?: string; // alt attribute of <img> tag.
+  width?: number; // Specified width of image. default 100%
+  height?: number; // Specified height of image. default auto
+  ratio?: number; // Ratio of width and height in percentage (height/width*100)
   className?: string;
   style?: Record<string, unknown>;
 }
@@ -46,6 +46,7 @@ const ImageWithFallback = ({
       <img
         src={src}
         onError={() => {
+          // When it fails to load original image, replace the src.
           if (imgRef && imgRef.current) {
             imgRef.current.src = fallbackSrc;
           }
