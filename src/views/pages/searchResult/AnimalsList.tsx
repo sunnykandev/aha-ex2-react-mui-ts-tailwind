@@ -81,8 +81,13 @@ export default function AnimalsList({
                 <AnimalItemSkeleton />
               </Grid>
             ))}
+          {!isLoading && searchResultItems.length === 0 && (
+            <h4 className="m-auto mt-[200px] text-white">
+              Sorry, there is no search result...
+            </h4>
+          )}
         </Grid>
-        {searchResultItems.length && hasMore && (
+        {searchResultItems.length !== 0 && hasMore && (
           <div>
             <Button
               className="w-full text-sm font-bold h-[40px] max-w-[343px] mr-[2px] ml-[20px] mt-[18px] mb-[30px]"
