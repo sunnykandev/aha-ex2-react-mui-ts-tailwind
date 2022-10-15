@@ -1,17 +1,17 @@
 import { Skeleton } from "@mui/material";
 
-export default function AnimalItemSkeleton() {
-  const styles = {
-    gridItem: {
-      margin: "18px",
-      marginBottom: "11px",
-    },
-    imageSkeleton: {
-      height: "0px",
-      paddingBottom: "66%",
-    },
-  };
+const styles = {
+  gridItem: {
+    margin: "18px",
+    marginBottom: "11px",
+  },
+  imageSkeleton: {
+    height: "0px",
+    paddingBottom: "66%",
+  },
+};
 
+export default function AnimalItemSkeleton() {
   return (
     <>
       <div style={styles.gridItem}>

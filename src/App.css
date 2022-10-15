@@ -1,3 +1,6 @@
+:root {
+  --darkBlack: #181818;
+}
 .App {
   text-align: center;
 }
@@ -128,6 +131,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 4px;
+  background: var(--darkBlack) !important;
 }
 
 /* Track */

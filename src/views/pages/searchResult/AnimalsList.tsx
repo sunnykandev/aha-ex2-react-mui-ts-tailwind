@@ -24,15 +24,19 @@ export default function AnimalsList({
   const fetchSearchResult = useCallback(
     async (num: number, count: number, keyword: string) => {
       setIsLoading(true);
+
       const res = await Api().get(
         `users/all?page=${num}&pageSize=${count}&keyword=${keyword}`
       );
+
       setIsLoading(false);
       const fetchedData = res?.data?.data;
+
       // Concatenate fetched items to already existing items.
       setSearchResultItems((data) =>
         data.concat(fetchedData ? fetchedData : [])
       );
+
       // If no data is fetched, no more send request.
       if (!fetchedData || !fetchedData.length) setHasMore(false);
     },
