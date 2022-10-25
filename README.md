@@ -1,4 +1,4 @@
-<h1 align="center">Aha Frontend Engineer Exam 2</h1>
+<h1 align="center">Animal Finder</h1>
 
 <div align="center">
 
@@ -10,7 +10,7 @@
 
 <div align="center">
 
-Frontend Test Project
+Frontend Project
 with [Typescript](https://www.typescriptlang.org/), [Redux Toolkit](https://redux-toolkit.js.org/),
 [React Hook Form](https://react-hook-form.com/) and [Material UI](https://mui.com/).
 
